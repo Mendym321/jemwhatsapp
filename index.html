@@ -732,21 +732,49 @@
         }
 
         function goToStep2() {
-            const form = document.getElementById('dedicationForm');
-            if (!form.checkValidity()) {
-                form.reportValidity();
+            // Get all required fields
+            const sponsorName = document.getElementById('sponsorName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const dedicationName = document.getElementById('dedicationName').value.trim();
+
+            // Check if all required fields are filled
+            if (!sponsorName) {
+                alert('Please enter your name');
+                document.getElementById('sponsorName').focus();
                 return;
             }
 
-            formData.sponsorName = document.getElementById('sponsorName').value;
-            formData.email = document.getElementById('email').value;
+            if (!email) {
+                alert('Please enter your email');
+                document.getElementById('email').focus();
+                return;
+            }
+
+            // Basic email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address');
+                document.getElementById('email').focus();
+                return;
+            }
+
+            if (!dedicationName) {
+                alert('Please enter who this dedication is for');
+                document.getElementById('dedicationName').focus();
+                return;
+            }
+
+            // Save form data
+            formData.sponsorName = sponsorName;
+            formData.email = email;
             formData.phone = document.getElementById('phone').value;
             formData.dedicationType = document.querySelector('input[name="dedicationType"]:checked').value;
-            formData.dedicationName = document.getElementById('dedicationName').value;
+            formData.dedicationName = dedicationName;
             formData.occasion = document.getElementById('occasion').value;
             formData.preferredDate = document.getElementById('preferredDate').value;
             formData.message = document.getElementById('message').value;
 
+            // Switch to step 2
             document.getElementById('step1').classList.remove('active');
             document.getElementById('step2').classList.add('active');
             document.getElementById('step3').classList.remove('active');
