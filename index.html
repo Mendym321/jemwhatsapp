@@ -369,6 +369,92 @@
         }
 
         /* REVIEW */
+        /* REVIEW */
+        .review-section {
+            margin-bottom: 32px;
+        }
+
+        .review-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: 16px;
+        }
+
+        .dedication-box {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .dedication-type {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+        }
+
+        .dedication-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .dedication-occasion {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .dedication-message {
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.6;
+            font-style: italic;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .detail-item {
+            background: var(--bg-subtle);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .detail-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: 6px;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .detail-amount {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
         .dedication-preview {
             background: var(--bg-subtle);
             border: 1px solid var(--border);
@@ -658,48 +744,49 @@
                 <div class="form-card">
                     <div class="section-header">
                         <h2 class="section-title">Review Your Sponsorship</h2>
-                        <p class="section-description">Confirm before proceeding to payment</p>
+                        <p class="section-description">Confirm your details before submitting</p>
                     </div>
 
-                    <div class="dedication-preview">
-                        <h3 id="reviewDedicationType">In Honor Of</h3>
-                        <p id="reviewDedicationName" style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">David ben Sarah</p>
-                        <p id="reviewOccasion" style="font-size: 14px; color: var(--text-secondary);"></p>
-                        <p id="reviewMessage" style="margin-top: 16px;"></p>
+                    <div class="review-section">
+                        <h3 class="review-section-title">Dedication</h3>
+                        <div class="dedication-box">
+                            <div class="dedication-type" id="reviewDedicationType">In Honor Of</div>
+                            <div class="dedication-name" id="reviewDedicationName">David ben Sarah</div>
+                            <div class="dedication-occasion" id="reviewOccasion"></div>
+                            <div class="dedication-message" id="reviewMessage"></div>
+                        </div>
                     </div>
 
-                    <div class="review-grid">
-                        <div class="review-item">
-                            <div class="review-label">Sponsor</div>
-                            <div class="review-value" id="reviewSponsorName">Moshe Cohen</div>
-                        </div>
-                        <div class="review-item">
-                            <div class="review-label">Email</div>
-                            <div class="review-value" id="reviewEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aac7c5d9c2cfeacfd2cbc7dac6cf84c9c5c7">[email&#160;protected]</a></div>
-                        </div>
-                        <div class="review-item">
-                            <div class="review-label">Date</div>
-                            <div class="review-value" id="reviewDate">We'll choose the date</div>
-                        </div>
-                        <div class="review-item">
-                            <div class="review-label">Contribution</div>
-                            <div class="review-value" id="reviewAmount" style="font-size: 24px; color: var(--primary);">$36</div>
+                    <div class="review-section">
+                        <h3 class="review-section-title">Details</h3>
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <div class="detail-label">Name</div>
+                                <div class="detail-value" id="reviewSponsorName">Moshe Cohen</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Email</div>
+                                <div class="detail-value" id="reviewEmail">moshe@example.com</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Preferred Date</div>
+                                <div class="detail-value" id="reviewDate">We'll choose the date</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Contribution</div>
+                                <div class="detail-value detail-amount" id="reviewAmount">$36</div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="info-notice">
                         <h4>What Happens Next</h4>
-                        <ul>
-                            <li>Secure payment via Stripe</li>
-                            <li>We'll review and assign your date</li>
-                            <li>Email confirmation with details</li>
-                            <li>Your dedication shared on WhatsApp</li>
-                        </ul>
+                        <p>After submission, we'll review your dedication and assign a date. You'll receive a confirmation email with all the details.</p>
                     </div>
 
                     <div class="button-group">
                         <button type="button" class="btn-secondary" onclick="goToStep2()">Back</button>
-                        <button type="button" class="btn-primary" onclick="submitSponsorship()">Complete Payment</button>
+                        <button type="button" class="btn-primary" onclick="submitSponsorship()">Submit</button>
                     </div>
                 </div>
             </div>
