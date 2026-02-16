@@ -520,15 +520,15 @@
                         <p class="section-description">Share who you'd like to honor</p>
                     </div>
 
-                    <form id="dedicationForm" onsubmit="return false;">
+                    <div id="dedicationInputs">
                         <div class="form-group">
                             <label>Your Name *</label>
-                            <input type="text" id="sponsorName" required placeholder="Moshe Cohen">
+                            <input type="text" id="sponsorName" placeholder="Moshe Cohen">
                         </div>
 
                         <div class="form-group">
                             <label>Email *</label>
-                            <input type="email" id="email" required placeholder="moshe@example.com">
+                            <input type="email" id="email" placeholder="moshe@example.com">
                         </div>
 
                         <div class="form-group">
@@ -552,7 +552,7 @@
 
                         <div class="form-group">
                             <label>Dedicated to *</label>
-                            <input type="text" id="dedicationName" required placeholder="David ben Sarah">
+                            <input type="text" id="dedicationName" placeholder="David ben Sarah">
                         </div>
 
                         <div class="form-group">
@@ -581,9 +581,9 @@
                         </div>
 
                         <div class="button-group">
-                            <button type="button" class="btn-primary" onclick="goToStep2(); return false;">Continue</button>
+                            <button type="button" class="btn-primary" id="continueBtn1">Continue</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -732,10 +732,14 @@
         }
 
         function goToStep2() {
+            console.log('goToStep2 called!');
+            
             // Get all required fields
             const sponsorName = document.getElementById('sponsorName').value.trim();
             const email = document.getElementById('email').value.trim();
             const dedicationName = document.getElementById('dedicationName').value.trim();
+
+            console.log('Values:', { sponsorName, email, dedicationName });
 
             // Check if all required fields are filled
             if (!sponsorName) {
@@ -763,6 +767,8 @@
                 document.getElementById('dedicationName').focus();
                 return;
             }
+
+            console.log('Validation passed, switching to step 2');
 
             // Save form data
             formData.sponsorName = sponsorName;
@@ -857,27 +863,17 @@
         });
 
         async function submitSponsorship() {
-            try {
-                const response = await fetch('http://localhost:3000/api/create-checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ formData })
-                });
-                
-                const result = await response.json();
-                
-                if (result.sessionId) {
-                    const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY_HERE');
-                    const { error } = await stripe.redirectToCheckout({
-                        sessionId: result.sessionId
-                    });
-                    
-                    if (error) {
-                        alert('Error: ' + error.message);
-                    }
-                } else {
-                    alert('Error creating checkout session');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error connectin
+            alert('Payment processing is not yet connected. This is just a demo of the form flow. In production, this would connect to Stripe.');
+        }
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('preferredDate').setAttribute('min', today);
+
+        // Add click handler to continue button
+        document.getElementById('continueBtn1').addEventListener('click', function() {
+            goToStep2();
+        });
+    </script>
+</body>
+</html>
