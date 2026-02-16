@@ -520,7 +520,7 @@
                         <p class="section-description">Share who you'd like to honor</p>
                     </div>
 
-                    <form id="dedicationForm">
+                    <form id="dedicationForm" onsubmit="return false;">
                         <div class="form-group">
                             <label>Your Name *</label>
                             <input type="text" id="sponsorName" required placeholder="Moshe Cohen">
@@ -581,7 +581,7 @@
                         </div>
 
                         <div class="button-group">
-                            <button type="button" class="btn-primary" onclick="goToStep2()">Continue</button>
+                            <button type="button" class="btn-primary" onclick="goToStep2(); return false;">Continue</button>
                         </div>
                     </form>
                 </div>
