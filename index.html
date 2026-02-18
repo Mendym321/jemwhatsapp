@@ -793,6 +793,15 @@
         </div>
     </div>
 
+    <div class="main" id="confirmation" style="display:none;">
+        <div class="container">
+            <div class="page-header">
+                <h1>Thank You!</h1>
+                <p>Your sponsorship has been submitted. We'll review your dedication and be in touch with confirmation details.</p>
+            </div>
+        </div>
+    </div>
+
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         let formData = {
             sponsorName: '',
@@ -950,7 +959,39 @@
         });
 
         async function submitSponsorship() {
-            alert('Payment processing is not yet connected. This is just a demo of the form flow. In production, this would connect to Stripe.');
+            const payload = {
+                sponsor_name: formData.sponsorName,
+                email: formData.email,
+                phone: formData.phone || null,
+                dedication_type: formData.dedicationType,
+                dedication_name: formData.dedicationName,
+                occasion: formData.occasion || null,
+                message: formData.message || null,
+                preferred_date: formData.preferredDate || null,
+                amount: formData.amount
+            };
+
+            try {
+                const response = await fetch('/api/entries', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    alert('Submission failed: ' + (data.error || 'Unknown error'));
+                    return;
+                }
+
+                // Show confirmation
+                document.getElementById('step3').style.display = 'none';
+                document.getElementById('confirmation').style.display = 'block';
+            } catch (err) {
+                alert('Network error. Please try again.');
+                console.error(err);
+            }
         }
 
         // Set minimum date to today
